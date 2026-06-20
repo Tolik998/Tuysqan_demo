@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/*
+  Tuysqan — design tokens
+  Палитра и шрифты зафиксированы брифом: Sand / Warm Cream / Coffee /
+  Forest Green как основные, Gold как акцент. Playfair Display для
+  заголовков (характер, тепло), Inter для текста (читаемость на двух
+  языках, кириллица + латиница + қазақ диакритика).
+*/
+
+:root {
+  /* --- Brand palette --- */
+  --color-sand: #f5e9d6;
+  --color-cream: #fff8f0;
+  --color-coffee: #7b5b45;
+  --color-coffee-dark: #5e4434;
+  --color-forest: #5b7a57;
+  --color-forest-dark: #446041;
+  --color-gold: #d4a373;
+  --color-gold-light: #e8c9a3;
+
+  /* --- Neutral ink derived from Coffee, not pure black --- */
+  --color-ink: #2f241b;
+  --color-ink-soft: #4a3b2e;
+
+  /* --- Surfaces --- */
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+
+  /* --- Radii & shadows: rounded, warm, no sharp corporate edges --- */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-warm: 0 20px 60px -25px rgba(123, 91, 69, 0.35);
+  --shadow-soft: 0 8px 30px -12px rgba(91, 61, 38, 0.25);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-sand: var(--color-sand);
+  --color-cream: var(--color-cream);
+  --color-coffee: var(--color-coffee);
+  --color-coffee-dark: var(--color-coffee-dark);
+  --color-forest: var(--color-forest);
+  --color-forest-dark: var(--color-forest-dark);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --radius-card: var(--radius-card);
+  --radius-pill: var(--radius-pill);
+}
+
+* {
+  border-color: var(--color-sand);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Уважаем prefers-reduced-motion — выключаем декоративную анимацию */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Видимый focus-ring для клавиатурной навигации, в тон бренду */
+:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Тонкая декоративная текстура — едва заметное зерно, чтобы тёплый крем
+   не выглядел как плоский CSS-фон */
+.bg-grain {
+  background-image: radial-gradient(circle at 1px 1px, rgba(123, 91, 69, 0.06) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Утилита для аккуратного line-clamp без плагина */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
